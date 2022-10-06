@@ -212,10 +212,12 @@ setup(
     packages=['capstone'],
     name='capstone',
     version=VERSION,
-    author='Nguyen Anh Quynh',
-    author_email='aquynh@gmail.com',
+    author='GrammaTech',
+    author_email='gtirb@grammatech.com',
     description='Capstone disassembly engine',
-    url='http://www.capstone-engine.org',
+    long_description="GrammaTech's fork of capstone.",
+    long_description_content_type="text/plain",
+    url='https://github.com/GrammaTech/capstone'
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
     classifiers=[
         'License :: OSI Approved :: BSD License',
