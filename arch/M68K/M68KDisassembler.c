@@ -1582,7 +1582,7 @@ static void d68000_bsr_16(m68k_info *info)
 static void d68020_bsr_32(m68k_info *info)
 {
 	LIMIT_CPU_TYPES(info, M68020_PLUS);
-	build_relative_branch(info, M68K_INS_BSR, 4, peek_imm_32(info));
+	build_relative_branch(info, M68K_INS_BSR, 4, read_imm_32(info));
 }
 
 static void d68000_btst_r(m68k_info *info)
@@ -2036,8 +2036,14 @@ static void d68020_cpgen(m68k_info *info)
 	ext->op_size.type = M68K_SIZE_TYPE_CPU;
 	ext->op_size.cpu_size = 0;
 
-	op0 = &ext->operands[0];
-	op1 = &ext->operands[1];
+	// Special case - adjust direction of fmove
+	if ((opmode == 0x00) && ((next >> 13) & 0x1) != 0) {
+		op0 = &ext->operands[1];
+		op1 = &ext->operands[0];
+	} else {
+		op0 = &ext->operands[0];
+		op1 = &ext->operands[1];
+	}
 
 	if (rm == 0 && supports_single_op && src == dst) {
 		ext->op_count = 1;
